@@ -1,0 +1,264 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+
+html {
+  min-height: 100%;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  cursor: default;
+}
+
+body {
+  font-family: 'Bangers', cursive;
+  background-image: url("../public/les.jpg");
+  background-size: cover;
+  background-position: center top;
+  overflow: hidden;
+}
+
+#game {
+  background-image: url("../public/landscape.svg");
+  background-size: cover;
+  background-position: center;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 90%;
+  max-width: 1400px;
+
+  border-radius: 15px;
+
+  box-shadow: 0 0 200px #000;
+
+  text-align: center;
+}
+
+#gradient {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  z-index: -1;
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.gradientLeft {
+  opacity: 1 !important;
+  background: linear-gradient(90deg, rgba(78, 255, 0, 0.5858718487394958) 0%, rgba(255, 255, 255, 0) 50%, rgba(255, 45, 45, 0.5970763305322129) 100%);
+}
+
+.gradientRight {
+  opacity: 1 !important;
+  background: linear-gradient(-90deg, rgba(78, 255, 0, 0.5858718487394958) 0%, rgba(255, 255, 255, 0) 50%, rgba(255, 45, 45, 0.5970763305322129) 100%);
+}
+
+.gradientDraw {
+  opacity: 1 !important;
+  background: linear-gradient(-90deg, rgba(246, 250, 31, 0.586) 0%, rgba(255, 255, 255, 0) 50%, rgba(246, 250, 31, 0.586) 100%);
+}
+
+
+.title {
+  padding: 0 10px;
+  background: rgb(255, 42, 114);
+  background: linear-gradient(90deg, rgba(255, 42, 114, 1) 0%, rgba(170, 104, 255, 1) 50%, rgba(255, 129, 45, 1) 100%);
+  display: inline-block;
+  font-size: 60px;
+  background-size: 200% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  text-shadow: 0 10px 20px rgba(255, 166, 0, 0.5);
+  transform: translateY(-50%);
+  text-stroke: 1px #fff;
+  -webkit-text-stroke: 1px #00000069;
+  font-weight: normal;
+
+  animation: 5s infinite title;
+}
+
+@keyframes title {
+  0% {
+    background-position: left;
+  }
+
+  50% {
+    background-position: right;
+  }
+
+  100% {
+    background-position: left;
+  }
+}
+
+.counter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  font-size: 150px;
+  color: #fff;
+  -webkit-text-stroke: 4px #000;
+  font-weight: normal;
+  text-shadow: 0 0 30px #6f00ff;
+  opacity: 0;
+  transition: 0.3s;
+}
+
+#hands {
+  font-size: 0;
+}
+
+#hands img {
+  width: 30%;
+  transition: 0.3s;
+}
+
+.hl {
+  margin-right: 20%;
+}
+
+
+.hr {
+  margin-left: 20%;
+}
+
+.sl {
+  margin-right: 20%;
+}
+
+
+.sr {
+  margin-left: 20%;
+}
+
+#score {
+  color: #fff;
+  font-size: 40px;
+}
+
+#score h3 {
+  width: 30%;
+  display: inline-block;
+}
+
+#options {
+  transform: translateY(50%);
+}
+
+#modes {
+  position: absolute;
+  text-align: center;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 1400px;
+}
+
+#modes button {
+  position: relative;
+  font-family: 'Bangers', cursive;
+  font-size: 30px;
+  line-height: 40px;
+  border: none;
+  
+  width: 10%;
+  height: 40px;
+  margin: 0 10px;
+
+  background: rgb(255, 42, 114);
+  background: linear-gradient(90deg, rgba(255, 42, 114, 1) 0%, rgba(170, 104, 255, 1) 50%, rgba(255, 129, 45, 1) 100%);
+  background-size: 200% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  cursor: pointer;
+}
+
+#modes button::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  border-radius: 6px;
+  left: 0;
+  top: 0;
+  z-index: -100;
+}
+
+.activeMode::after {
+  /* background-color: red !important;  */
+  box-shadow: 0 0px 30px pink;
+  transform: scale(1.15);
+  transition: 0.3s;
+}
+
+#options img {
+  height: 100px;
+  width: 100px;
+  border: 1px solid #000;
+  border-radius: 300px;
+  margin: 0 10px;
+  background: linear-gradient(90deg, rgba(255, 42, 114, 1) 0%, rgba(170, 104, 255, 0.5) 50%, rgba(255, 42, 114, 1) 100%);
+  object-fit: cover;
+  padding: 5px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+#options img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 50px #ffffff50;
+}
+
+#options img:active {
+  transform: scale(1.1);
+}
+
+.counterVisible {
+  animation: 1s 3 counter;
+}
+
+@keyframes counter {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(10);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.handsVisible {
+  transform: none !important;
+
+}
+
+.optionDisabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+span {
+  position: absolute;
+  z-index: 100;
+  transform: translateY(-100%);
+}
