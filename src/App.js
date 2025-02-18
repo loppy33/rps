@@ -81,55 +81,41 @@ class App extends React.Component {
   }
 
   choiceHand(name) {
-    console.log(name);
-    let rightHand = this.state.options[Math.floor(Math.random() * 3)]
-    console.log(this.state.activeMode);
-    if (this.state.activeMode === 'EASY') {
-      let winner = this.choiceWinner(name, rightHand)
-      console.log(winner, name, rightHand)
-      // let random = this.state.options[Math.floor(Math.random() * 2)]
-    
-      if(winner !== name) {
-        this.choiceHand(name)
+      let rightHand = this.state.options[Math.floor(Math.random() * 3)];
+  
+      if (this.state.activeMode === 'EASY') {
+          for (let i = 0; i < 10; i++) { // Максимум 10 попыток
+              let winner = this.choiceWinner(name, rightHand);
+              if (winner === name) break; // Остановить, если выбрана рука, проигрывающая игроку
+              rightHand = this.state.options[Math.floor(Math.random() * 3)];
+          }
       }
-      else {
-        console.log('choiceHand - '+rightHand)
-        return rightHand
-      }
-    }
-    
+      return rightHand;
   }
-
-
-
+  
+  
   start(name) {
-    let rightHand = this.choiceHand(name)
-    console.log('st - '+ rightHand);
-    this.setState({
-      rightHand: rightHand,
-      leftHand: name,
-      counterClass: 'counterVisible',
-      optionsClass: 'optionDisabled',
-      gradientClass: '',
-      handsClass: '',
-    }, () => console.log('start - '+this.state.rightHand))
-    
-    this.counterInterval = setInterval(() => {
-      this.setState(function (state) {
-        if (state.counterNumber === 1) {
-          clearInterval(this.counterInterval)
-        }
-        return {
-          counterNumber: state.counterNumber - 1
-        }
-      }, function () {
-        if (this.state.counterNumber === 0) {
-          this.showHands()
-        }
-      })
-    }, 1000)
+      let rightHand = this.choiceHand(name) || this.state.options[Math.floor(Math.random() * 3)];
+  
+      this.setState({
+          rightHand,
+          leftHand: name,
+          counterClass: 'counterVisible',
+          optionsClass: 'optionDisabled',
+          gradientClass: '',
+          handsClass: '',
+      });
+  
+      this.counterInterval = setInterval(() => {
+          this.setState((state) => {
+              if (state.counterNumber === 1) clearInterval(this.counterInterval);
+              return { counterNumber: state.counterNumber - 1 };
+          }, () => {
+              if (this.state.counterNumber === 0) this.showHands();
+          });
+      }, 1000);
   }
-
+  
   end(winner) {
     this.setState({
       optionsClass: 'optionDisabled',
